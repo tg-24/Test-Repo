@@ -1,9 +1,4 @@
 import math
-try:
-    data=5
-    temp=2
-    result=int(data/temp)
-    print(result)
-except ZeroDivisionError:
-    print("Cant divide by zero")
-
+def scientific(base,power):
+       print(base*math.pow(10,power))
+scientific(1.92,-2)
