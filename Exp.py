@@ -1,12 +1,10 @@
-def drawtriangle():
-    for i in range(5,0,-1):
-        print("*"*i,end=" "*(6-i)+(i*"*"))
-        print()
-drawtriangle()
-
-print()
-print("* * * *     *")
-print("      *     *")
-print("* * * * * * * ")
-print("*     *")
-print("*     * * * *")
+import math
+def drawtriangle(a,b):
+    temp=0
+    if(a>b):
+        temp=-1
+    else:
+        temp=1
+    for i in range(a,b+temp,temp):
+        print(i,end=" ")
+drawtriangle(20,1)
