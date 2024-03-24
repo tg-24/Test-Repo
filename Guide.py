@@ -1,5 +1,24 @@
-args =   parameter that will pack all arguments into a tuple
-useful so that a function can accept a varying amount of arguments
+# set = collection which is unordered, unindexed. No duplicate values
+
+utensils = {"fork","spoon","knife"}
+dishes = {"bowl","plate","cup","knife"}
+
+#utensils.add("napkin")
+#utensils.remove("fork")
+#utensils.clear()
+#dishes.update(utensils)
+#dinner_table = utensils.union(dishes)
+
+#print(dishes.difference(utensils))
+#print(utensils.intersection(dishes))
+
+for x in utensils:
+    print(x)
+
+
+
+#args =   parameter that will pack all arguments into a tuple
+#useful so that a function can accept a varying amount of arguments
 
 def add(*args):
     sum = 0
@@ -9,6 +28,8 @@ def add(*args):
 
 
 print(add(1,2,3,4,5,6,7,8))
+
+
 # **kwargs =   parameter that will pack all arguments into a dictionary
 # useful so that a function can accept a varying amount of keyword arguments
 
@@ -20,6 +41,29 @@ def hello(**kwargs):
 
 
 hello(title="Mr.",first="Bro",middle="Dude",last="Code")
+
+
+
+# exception =   events detected during execution that interrupt the flow of a program
+try:
+    numerator = int(input("Enter a number to divide: "))
+    denominator = int(input("Enter a number to divide by: "))
+    result = numerator / denominator
+except ZeroDivisionError as e:
+    print(e)
+    print("You can't divide by zero! idiot!")
+except ValueError as e:
+    print(e)
+    print("Enter only numbers plz")
+except Exception as e:
+    print(e)
+    print("something went wrong :(")
+else:
+    print(result)
+finally:
+    print("This will always execute")
+
+
 
 #file detection
 import os
@@ -34,6 +78,8 @@ if os.path.exists(path):
         print("That is a directory!")
 else:
     print("That location doesn't exist!")
+
+
 #read a file
 try:
     with open('test.txt') as file:
@@ -41,11 +87,14 @@ try:
 except FileNotFoundError:
     print("That file was not found :(")
 
+
 #write a file
 text = "Yooooooooo\nThis is some text\nHave a good one!\n"
 
 with open('test.txt','w') as file:
     file.write(text)
+
+
 #copy a file
 #copyfile() =  copies contents of a file
 #copy() =      copyfile() + permission mode + destination can be a directory
@@ -54,6 +103,7 @@ with open('test.txt','w') as file:
 import shutil
 
 shutil.copyfile('test.txt','copy.txt') #src,dst
+
 
 #move a file
 import os
@@ -69,6 +119,7 @@ try:
         print(source+" was moved")
 except FileNotFoundError:
     print(source+" was not found")
+
 
 #delete a file
 import os
@@ -129,9 +180,9 @@ rabbit.run()
 fish.swim()
 hawk.fly()
 
-#method chaining
-method chaining = calling multiple methods sequentially
-each call performs an action on the same object and returns self
+
+#method chaining = calling multiple methods sequentially
+#each call performs an action on the same object and returns self
 
 class Car:
 
@@ -162,6 +213,9 @@ car.turn_on()\
     .drive()\
     .brake()\
     .turn_off()
+
+
+
 #abstract classes
 # Prevents a user from creating an object of that class
 # + compels a user to override abstract methods in a child class
@@ -209,6 +263,7 @@ motorcycle.go()
 #vehicle.stop()
 car.stop()
 motorcycle.stop()
+
 
 
 #walrus operator :=
@@ -264,6 +319,8 @@ hello(quiet)
 #divide = divisor(2)
 #print(divide(10))
 
+
+
 # lambda function = function written in 1 line using lambda keyword
 #                   accepts any number of arguments, but only has one expression.
 #                   (think of it as a shortcut)
@@ -286,6 +343,8 @@ print(full_name("Bro","Code"))
 age_check = lambda age: True if age >= 18 else False
 print(age_check(18))
 
+
+
 # filter() =    creates a collection of elements from an iterable,
 #               for which a function returns true
 #
@@ -305,6 +364,8 @@ drinking_buddies = list(filter(age, friends))
 for i in drinking_buddies:
     print(i)
 
+
+
 # reduce() = apply a function to an iterable and reduce it to a single cumulative value.
 #            performs function on first two elements and repeats process until 1 value remains
 #
@@ -319,6 +380,8 @@ print(word)
 # factorial = [5,4,3,2,1]
 # result = functools.reduce(lambda x, y,:x * y,factorial)
 # print(result)
+
+
 
 # list comprehension =  a way to create a new list with less syntax
 #                       can mimic certain lambda functions, easier to read
@@ -343,6 +406,9 @@ passed_students = [i for i in students if i >= 60]
 # passed_students = [i if i >= 60 else "FAILED" for i in students]
 
 print(passed_students)
+
+
+
 
 # dictionary comprehension = create dictionaries using an expression
 #                            can replace for loops and certain lambda functions
@@ -380,6 +446,8 @@ print(cities_in_C)
 # desc_cities = {key: check_temp(value) for (key,value) in cities.items()}
 # print(desc_cities)
 
+
+
 # zip(*iterables) =  aggregate elements from two or more iterables (list, tuples, sets, etc.)
 #                    creates a zip object with paired elements stored in tuples for each element
 
@@ -404,6 +472,8 @@ users = zip(usernames,passwords,login_dates)
 
 for i in users:
     print(i)
+
+
 
 # time module
 import time
@@ -440,6 +510,9 @@ print(time.ctime(time.time())) # will get current time
 # time_string = time.mktime(time_tuple)
 # print(time_string)
 
+
+
+
 # Python daemon threads
 # **********************************************************
 
@@ -469,6 +542,9 @@ x.start()
 # print(x.isDaemon())
 
 answer = input("Do you wish to exit?")
+
+
+
 
 # Python multiprocessing
 # *********************************
@@ -508,6 +584,9 @@ def main():
 if _name_ == '__main__':
     main()
 
+
+
+
 #checkbox
 from tkinter import *
 
@@ -543,6 +622,9 @@ check_button.pack()
 
 window.mainloop()
 
+
+
+
 #colorchooser
 from tkinter import *
 from tkinter import colorchooser
@@ -557,6 +639,9 @@ window.geometry("420x420")
 button = Button(text='click me',command=click)
 button.pack()
 window.mainloop()
+
+
+
 
 #open a file (filedialog)
 from tkinter import *
@@ -575,6 +660,7 @@ window = Tk()
 button = Button(text="Open",command=openFile)
 button.pack()
 window.mainloop()
+
 
 
 #save a file (filedialog)
@@ -603,4 +689,44 @@ text = Text(window)
 text.pack()
 window.mainloop()
 
+
+
+
+#menubar
+from tkinter import *
+
+def openFile():
+    print("File has been opened!")
+def saveFile():
+    print("File has been saved!")
+def cut():
+    print("You cut some text!")
+def copy():
+    print("You copied some text!")
+def paste():
+    print("You pasted some text!")
+
+window = Tk()
+
+openImage = PhotoImage(file="file.png")
+saveImage = PhotoImage(file="save.png")
+exitImage = PhotoImage(file="exit.png")
+
+menubar = Menu(window)
+window.config(menu=menubar)
+
+fileMenu = Menu(menubar,tearoff=0,font=("MV Boli",15))
+menubar.add_cascade(label="File",menu=fileMenu)
+fileMenu.add_command(label="Open",command=openFile,image=openImage,compound='left')
+fileMenu.add_command(label="Save",command=saveFile,image=saveImage,compound='left')
+fileMenu.add_separator()
+fileMenu.add_command(label="Exit",command=quit,image=exitImage,compound='left')
+
+editMenu = Menu(menubar,tearoff=0,font=("MV Boli",15))
+menubar.add_cascade(label="Edit",menu=editMenu)
+editMenu.add_command(label="Cut",command=cut)
+editMenu.add_command(label="Copy",command=copy)
+editMenu.add_command(label="Paste",command=paste)
+
+window.mainloop()
 
