@@ -33,5 +33,5 @@ def main():
     print("finished in:", time.perf_counter(), "seconds")
 
 
-if _name_ == '__main__':
+if __name__ == '__main__':
     main()

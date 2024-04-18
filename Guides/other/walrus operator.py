@@ -1,8 +1,8 @@
 #walrus operator :=
 
-new to Python 3.8
-assignment expression aka walrus operator
-assigns values to variables as part of a larger expression
+#new to Python 3.8
+#assignment expression aka walrus operator
+#assigns values to variables as part of a larger expression
 
 happy = True
 print(happy)
