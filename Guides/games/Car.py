@@ -9,7 +9,7 @@ counter = 0
 rocks2=[]
 GAME_SIZE=400
 ROCK_COLOR="orange"
-SPACESIZE=35
+SPACESIZE=32
 current="down"
 carspace=150
 score=0
@@ -51,40 +51,49 @@ class Rock():
 
 
 def run(current):
-    global carphoto, begin,window,canvas,c,check
+    global carphoto, begin,window,canvas,c,check,score
 
-    x=car.coordinates[0]
-    y=car.coordinates[1]
+    if score==3:
+        check=1
+        a.join()
+        b.join()
+        victory()
 
-    if current=="up":
-        y-=SPACESIZE
-    elif current=="down":
-        y+=SPACESIZE
-    elif current=="left":
-        x-=SPACESIZE
     else:
-        x+=SPACESIZE
 
-    if x>window.winfo_screenwidth():
-        x=carspace/2
+        x=car.coordinates[0]
+        y=car.coordinates[1]
 
-    elif x<0:
-        x+=SPACESIZE
-        print("out of bounds")
+        if current=="up":
+            y-=SPACESIZE
+        elif current=="down":
+            y+=SPACESIZE
+        elif current=="left":
+            x-=SPACESIZE
+        else:
+            x+=SPACESIZE
 
-    elif y<0:
-        y=window.winfo_screenheight()-SPACESIZE
+        if x>window.winfo_screenwidth():
+            x=carspace/2
+            score += 1
 
-    elif y>window.winfo_screenheight():
-        y=carspace/2
+        elif x<0:
+            x+=SPACESIZE
+            print("out of bounds")
 
-    car.setimage(x, y)
+        elif y<0:
+            y=window.winfo_screenheight()-SPACESIZE
 
-    window.update()
-    checkcollision(car)
-    if check==1:
-        c=threading.Thread(target=gameover,args=())
-        c.start()
+        elif y>window.winfo_screenheight():
+            y=carspace/2
+
+        car.setimage(x, y)
+
+        window.update()
+        checkcollision(car)
+        if check==1:
+            c=threading.Thread(target=gameover,args=())
+            c.start()
 
 def timer():
     global begin,car,rocks,counter,canvas
@@ -102,7 +111,6 @@ def movement():
         time.sleep(0.5)
         count=0
         for i in rocks:
-            print(i.label)
             if(i.coordinates[0]<=0):
                 canvas.delete(i.label)
                 rocks.remove(i)
@@ -123,9 +131,24 @@ def checkcollision(car):
     global rocks,check,canvas
 
     for i in rocks:
-        if(abs(car.coordinates[0]-i.coordinates[0])<=carspace and abs(car.coordinates[1]-i.coordinates[1])<=carspace):
-            check = 1
+        x1=car.coordinates[0]
+        y1=car.coordinates[1]
+        x2=i.coordinates[0]
+        y2=i.coordinates[1]
+        if x1>x2:
+            if x1-x2<SPACESIZE+57:
+                if y1>y2 and y1 - y2 < SPACESIZE+38:
+                    print(111111111111)
+                    check = 1
+                elif y1<y2 and y2-y1 < 11:
+                    check = 1
 
+        elif x1 < x2:
+            if x2-x1 < 68:
+                if y1>y2 and y1 - y2 < SPACESIZE+38:
+                    check = 1
+                elif y1<y2 and y2-y1 < 11:
+                    check = 1
 
 def gameover():
     global canvas,a,b
@@ -136,11 +159,62 @@ def gameover():
     window.unbind('<Down>')
     window.unbind('<Left>')
     window.unbind('<Right>')
+    canvas.delete(ALL)
     window.update()
     canvas.config(bg="black")
     canvas.create_text(window.winfo_screenwidth()/2,window.winfo_screenheight()/2,text="GAMEOVER",fill="red",font=("Arial",70,"bold"),tag="end")
     time.sleep(2)
     window.destroy()
+
+def restart():
+    global window,canvas,start,canvas,background,car,a,b,movement,timer
+
+    canvas.destroy()
+    window.destroy()
+    window = Tk()
+
+    window.geometry("800x800")
+    window.config(bg="black")
+    window.update()
+
+    canvas = Canvas(window, width=window.winfo_screenwidth(), height=window.winfo_screenheight())
+    canvas.pack()
+
+    background = canvas.create_image(window.winfo_screenwidth() / 2, window.winfo_screenheight() / 2, image=road,
+                                     tag="road")
+    car = Car()
+
+    a = threading.Thread(target=movement, args=())
+    a.start()
+
+    b = threading.Thread(target=timer, args=())
+    b.start()
+
+    start = threading.Thread(target=start, args=())
+    start.start()
+
+def quit():
+    window.destroy()
+def victory():
+    global canvas, a, b
+    a.join()
+    b.join()
+    window.update()
+    window.unbind('<Up>')
+    window.unbind('<Down>')
+    window.unbind('<Left>')
+    window.unbind('<Right>')
+    window.geometry("300x250")
+    window.update()
+    canvas.delete(ALL)
+    quitbutton=Button(canvas,width=5,height=2,text="Quit",fg="black",bg="red",font=("bold"),command=quit)
+    quitbutton.place(x=window.winfo_screenwidth()/2-5,y=0)
+    restartbutton=Button(canvas,width=5,height=2,text="Play Again",fg="blue",bg="yellow",font=("bold"),command=restart)
+    restartbutton.place(x=window.winfo_screenwidth() / 2 + 5, y=0)
+    canvas.configure(width=300,height=168)
+    victoryscreen=PhotoImage(file="C:\\Users\\tmghi\\Test-Repo\\Extra Images\\Victory Screen.png")
+    canvas.create_image(canvas.winfo_screenwidth()/2,canvas.winfo_screenheight()/2,image=victoryscreen)
+    canvas.create_text(window.winfo_screenwidth()/2,window.winfo_screenheight()/2,text="Victory!!!",fill="yellow")
 
 def start():
     global window
@@ -159,6 +233,8 @@ def start():
     label.destroy()
 
 
+
+
 window=Tk()
 
 window.geometry("800x800")
@@ -175,7 +251,6 @@ background=canvas.create_image(window.winfo_screenwidth()/2,window.winfo_screenh
 
 car=Car()
 
-print(threading.active_count())
 a=threading.Thread(target=movement,args=())
 a.start()
 
@@ -187,3 +262,4 @@ start.start()
 
 
 window.mainloop()
+
