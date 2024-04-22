@@ -55,9 +55,8 @@ def run(current):
 
     if score==3:
         check=1
-        a.join()
-        b.join()
-        victory()
+        c = threading.Thread(target=victory, args=())
+        c.start()
 
     else:
 
@@ -99,7 +98,7 @@ def timer():
     global begin,car,rocks,counter,canvas
     counter=0
     while(check==0):
-        time.sleep(0.5)
+        time.sleep(0.8)
         rock = Rock(0,0,counter)
         counter+=1
         rocks2.append(rock)
@@ -127,28 +126,29 @@ def movement():
             rocks.append(j)
             rocks2.remove(j)
     canvas.delete(ALL)
+    winphoto = canvas.create_image(window.winfo_screenwidth() / 2, window.winfo_screenheight() / 2, image=victoryscreen,
+                                   tag="win")
 def checkcollision(car):
-    global rocks,check,canvas
+    global rocks,check,canvas,score
+    if score!=3:
+        for i in rocks:
+            x1=car.coordinates[0]
+            y1=car.coordinates[1]
+            x2=i.coordinates[0]
+            y2=i.coordinates[1]
+            if x1>x2:
+                if x1-x2<SPACESIZE+57:
+                    if y1>y2 and y1 - y2 < SPACESIZE+38:
+                        check = 1
+                    elif y1<y2 and y2-y1 < 11:
+                        check = 1
 
-    for i in rocks:
-        x1=car.coordinates[0]
-        y1=car.coordinates[1]
-        x2=i.coordinates[0]
-        y2=i.coordinates[1]
-        if x1>x2:
-            if x1-x2<SPACESIZE+57:
-                if y1>y2 and y1 - y2 < SPACESIZE+38:
-                    print(111111111111)
-                    check = 1
-                elif y1<y2 and y2-y1 < 11:
-                    check = 1
-
-        elif x1 < x2:
-            if x2-x1 < 68:
-                if y1>y2 and y1 - y2 < SPACESIZE+38:
-                    check = 1
-                elif y1<y2 and y2-y1 < 11:
-                    check = 1
+            elif x1 < x2:
+                if x2-x1 < 68:
+                    if y1>y2 and y1 - y2 < SPACESIZE+38:
+                        check = 1
+                    elif y1<y2 and y2-y1 < 11:
+                        check = 1
 
 def gameover():
     global canvas,a,b
@@ -167,7 +167,7 @@ def gameover():
     window.destroy()
 
 def restart():
-    global window,canvas,start,canvas,background,car,a,b,movement,timer
+    global window,canvas,start,canvas,background,car,a,b,movement,timer,victoryscreen,road,carphoto
 
     canvas.destroy()
     window.destroy()
@@ -177,8 +177,13 @@ def restart():
     window.config(bg="black")
     window.update()
 
+    victoryscreen = PhotoImage(file="C:\\Users\\tmghi\\Test-Repo\\Extra Images\\Victory Screen.png")
+
     canvas = Canvas(window, width=window.winfo_screenwidth(), height=window.winfo_screenheight())
     canvas.pack()
+
+    road = PhotoImage(file="C:\\Users\\tmghi\\Test-Repo\\Extra Images\\road.png")
+    carphoto = PhotoImage(file="C:\\Users\\tmghi\\Test-Repo\\Extra Images\\car.png")
 
     background = canvas.create_image(window.winfo_screenwidth() / 2, window.winfo_screenheight() / 2, image=road,
                                      tag="road")
@@ -196,25 +201,17 @@ def restart():
 def quit():
     window.destroy()
 def victory():
-    global canvas, a, b
-    a.join()
-    b.join()
+    global canvas, a, b,winphoto
     window.update()
     window.unbind('<Up>')
     window.unbind('<Down>')
     window.unbind('<Left>')
     window.unbind('<Right>')
-    window.geometry("300x250")
     window.update()
-    canvas.delete(ALL)
-    quitbutton=Button(canvas,width=5,height=2,text="Quit",fg="black",bg="red",font=("bold"),command=quit)
-    quitbutton.place(x=window.winfo_screenwidth()/2-5,y=0)
-    restartbutton=Button(canvas,width=5,height=2,text="Play Again",fg="blue",bg="yellow",font=("bold"),command=restart)
-    restartbutton.place(x=window.winfo_screenwidth() / 2 + 5, y=0)
-    canvas.configure(width=300,height=168)
-    victoryscreen=PhotoImage(file="C:\\Users\\tmghi\\Test-Repo\\Extra Images\\Victory Screen.png")
-    canvas.create_image(canvas.winfo_screenwidth()/2,canvas.winfo_screenheight()/2,image=victoryscreen)
-    canvas.create_text(window.winfo_screenwidth()/2,window.winfo_screenheight()/2,text="Victory!!!",fill="yellow")
+    frame=Frame(window,bd=5,relief=SUNKEN)
+    frame.place(x=window.winfo_screenwidth()/2-50,y=0)
+    quitbutton=Button(frame,width=10,height=2,text="Quit",fg="black",bg="red",font=("bold"),activebackground="red",command=quit)
+    quitbutton.grid(row=0,column=0)
 
 def start():
     global window
@@ -240,6 +237,9 @@ window=Tk()
 window.geometry("800x800")
 window.config(bg="black")
 window.update()
+
+victoryscreen = PhotoImage(file="C:\\Users\\tmghi\\Test-Repo\\Extra Images\\Victory Screen.png")
+
 
 canvas=Canvas(window,width=window.winfo_screenwidth(),height=window.winfo_screenheight())
 canvas.pack()
