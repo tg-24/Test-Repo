@@ -4,7 +4,7 @@ from tkinter import *
 
 window = Tk()
 
-photo = PhotoImage(file='person.png')
+#photo = PhotoImage(file='person.png')
 
 label = Label(window,
               text="bro, do you even code?",

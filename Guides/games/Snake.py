@@ -6,7 +6,7 @@ import random
 
 GAME_WIDTH = 700
 GAME_HEIGHT = 500
-SPEED = 50
+SPEED = 100
 SPACE_SIZE = 30
 BODY_PARTS = 3
 SNAKE_COLOR = "lime green"
@@ -51,7 +51,7 @@ class Food:
 
 
 def next_turn(snake, food):
-    global BODY_PARTS
+    global BODY_PARTS,SPEED
     x, y = snake.coordinates[0]
 
     if direction == "up":
@@ -73,7 +73,7 @@ def next_turn(snake, food):
     if x == food.coordinates[0] and y == food.coordinates[1]:
         BODY_PARTS += 1
         global score
-
+        SPEED-=0.5
         score += 1
 
         label.config(text="Score:{}".format(score))
@@ -94,7 +94,7 @@ def next_turn(snake, food):
         game_over()
 
     else:
-        window.after(SPEED, next_turn, snake, food)
+        window.after(70, next_turn, snake, food)
 
 
 def change_direction(new_direction):
@@ -139,8 +139,9 @@ def game_over():
     restart_button.config(state=ACTIVE)
 
 def new_game():
-    global score,food,snake,direction, BODY_PARTS
+    global score,food,snake,direction, BODY_PARTS,SPEED
     restart_button.config(state=DISABLED)
+    SPEED=100
     canvas.delete(ALL)
     score=0
     direction="down"

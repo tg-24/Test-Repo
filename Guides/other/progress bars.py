@@ -6,6 +6,7 @@ def start():
     GB = 100
     download = 0
     speed = 5
+    bar['value']=0
     while(download<GB):
         time.sleep(0.05)
         bar['value']+=(speed/GB)*100

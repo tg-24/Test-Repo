@@ -74,7 +74,7 @@ def victory():
    canvas.destroy()
    window.config(bg="yellow")
    window.update()
-   label2=Label(window,text="Victory!!!",width=window.winfo_width(),height=window.winfo_height(),bg="yellow",fg="blue",font=("Arial",50))
+   label2=Label(window,text="Amboutakum!!!",width=window.winfo_width(),height=window.winfo_height(),bg="yellow",fg="blue",font=("Arial",50))
    label2.pack()
    window.update()
    time.sleep(2)

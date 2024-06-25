@@ -87,7 +87,6 @@ def about():
 def quit():
     window.destroy()
 
-
 window = Tk()
 window.title("Text editor program")
 file = None
@@ -149,5 +148,6 @@ edit_menu.add_command(label="Paste", command=paste)
 help_menu = Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="Help", menu=help_menu)
 help_menu.add_command(label="About", command=about)
+
 
 window.mainloop()

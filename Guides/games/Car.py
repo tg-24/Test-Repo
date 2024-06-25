@@ -126,8 +126,6 @@ def movement():
             rocks.append(j)
             rocks2.remove(j)
     canvas.delete(ALL)
-    winphoto = canvas.create_image(window.winfo_screenwidth() / 2, window.winfo_screenheight() / 2, image=victoryscreen,
-                                   tag="win")
 def checkcollision(car):
     global rocks,check,canvas,score
     if score!=3:
@@ -208,7 +206,10 @@ def victory():
     window.unbind('<Left>')
     window.unbind('<Right>')
     window.update()
-    frame=Frame(window,bd=5,relief=SUNKEN)
+    winphoto = canvas.create_image(window.winfo_screenwidth() / 2, window.winfo_screenheight() / 2, image=victoryscreen,
+                                   tag="win")
+    window.update()
+    frame=Frame(canvas,bd=5,relief=SUNKEN)
     frame.place(x=window.winfo_screenwidth()/2-50,y=0)
     quitbutton=Button(frame,width=10,height=2,text="Quit",fg="black",bg="red",font=("bold"),activebackground="red",command=quit)
     quitbutton.grid(row=0,column=0)

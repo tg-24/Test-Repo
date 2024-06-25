@@ -11,7 +11,7 @@ window = Tk()
 
 x = IntVar()
 
-python_photo = PhotoImage(file='Python.png')
+python_photo = PhotoImage(file='C:\\Users\\tmghi\\Test-Repo\\Extra Images\\Python_color.png')
 
 check_button = Checkbutton(window,
                            text="I agree to something",

@@ -1,34 +1,37 @@
 from tkinter import *
-def display():
-   if(x.get()):
-       print("I like Python")
-   else:
-       print("I don't like Python")
+
+#entry widget = textbox that accepts a single line of user input
+
+def submit():
+    username = entry.get()
+    print("Hello "+username)
+
+def delete():
+    entry.delete(0,END)
+
+def backspace():
+    entry.delete(len(entry.get())-1, END)
 
 window = Tk()
 
-x = IntVar()
+entry = Entry(window,
+              font=("Arial",50),
+              fg="#00FF00",
+              bg="black")
 
-python_photo = PhotoImage(file="C:\\Users\\tmghi\\Test-Repo\\Extra Images\\Python_color.png")
+#entry.insert(0,'Spongebob')
+#entry.config(show="*")
+#entry.config(state=DISABLED)
 
-checkbox = Checkbutton(window,
-                      text='Python',
-                      variable=x,
-                      onvalue=True,
-                      offvalue=False,
-                      command=display,
-                      font=('Arial',20),
-                      fg='#00FF00',
-                      bg='#000000',
-                      activeforeground='#0000FF',
-                      activebackground='#000000',
-                      padx=25,
-                      pady=10,
-                      width=200,
-                      height=50,
-                      anchor='w',
-                      image=python_photo,
-                      compound='left')
-checkbox.pack()
+entry.pack(side=LEFT)
+
+submit_button = Button(window,text="submit",command=submit)
+submit_button.pack(side=RIGHT)
+
+delete_button = Button(window,text="delete",command=delete)
+delete_button.pack(side=RIGHT)
+
+backspace_button = Button(window,text="backspace",command=backspace)
+backspace_button.pack(side=RIGHT)
 
 window.mainloop()

@@ -1,5 +1,6 @@
 # radio button = similar to checkbox, but you can only select one from a group
 from tkinter import *
+from PIL import ImageTk, Image
 
 food = ["pizza","hamburger","hotdog"]
 
@@ -14,10 +15,11 @@ def order():
         print("huh?")
 
 window = Tk()
-
-pizzaImage = PhotoImage(file='pizza.png')
-hamburgerImage = PhotoImage(file='hamburger.png')
-hotdogImage = PhotoImage(file='hotdog.png')
+window.geometry("4000x4000")
+window.update()
+pizzaImage = PhotoImage(file='C:\\Users\\tmghi\\Test-Repo\\Anime\\dragonb.png')
+hamburgerImage = PhotoImage(file='C:\\Users\\tmghi\\Test-Repo\\Anime\\op.png')
+hotdogImage = ImageTk.PhotoImage(Image.open('C:\\Users\\tmghi\\Test-Repo\\Anime\\naruto.jpg'))
 foodImages = [pizzaImage,hamburgerImage,hotdogImage]
 
 x = IntVar()
